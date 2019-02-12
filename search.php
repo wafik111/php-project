@@ -35,10 +35,13 @@
                     while($row = mysqli_fetch_assoc($search_query)){
                     
                     $post_title = $row['post_title'];
-                    $post_author = $row['post_author'];
+                    $post_user_id = $row['post_user_id'];
                     $post_date = $row['post_date'];
                     $post_image = $row['post_image'];
                     $post_content = $row['post_content'];
+                    $query = "SELECT * FROM users WHERE user_id = $post_user_id LIMIT 1";
+                    $get_user = mysqli_query($connection,$query);
+                    $row = mysqli_fetch_assoc($get_user);
                 ?>
                 <h1 class="page-header">
                     Page Heading
@@ -50,7 +53,7 @@
                     <a href="#"><?php echo $post_title; ?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php"><?php echo $post_author; ?></a>
+                    by <a href="index.php"><?php echo $row['user_firstname']; ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
                 <hr>

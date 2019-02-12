@@ -33,6 +33,7 @@
                     $post_title = $row['post_title'];
                     $post_date = $row['post_date'];
                     $post_image = $row['post_image'];
+                    $post_status = $row['post_status'];
                     $post_content =substr($row['post_content'],0,220);
                 ?>
                 
@@ -41,14 +42,23 @@
                 <h2>
                     <a href="post.php?post_id=<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
                 </h2>
+                <?php
+                    if(isset($_SESSION['user_role'])){
+                        if($_SESSION['user_role'] === "Subscriber" && $post_status == "Pending"){
+                        echo "<a href='edit_posts.php?update=$post_id'><button class='btn btn-default pull-right'> Edit Post</button></a>";
+                        }
+                    }        
+                    ?>
+                <hr>  
                 <p class="lead">
                     by <a href="index.php"><?php echo $user['user_firstname']; ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
+                <p> Status :  <?php echo $post_status; ?></p>
                 <hr>
                 <a href="post.php?post_id=<?php echo $post_id; ?>"><img class="img-responsive" src="images/<?php echo $post_image; ?>" alt=""></a>
                 <hr>
-                <p><?php echo $post_content; ?></p>
+                <p><?php echo nl2br($post_content); ?></p>
                 <a class="btn btn-primary" href="post.php?post_id=<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                 <hr>

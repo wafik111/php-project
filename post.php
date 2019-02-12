@@ -30,7 +30,7 @@
                 $get_all_posts = mysqli_query($connection, $query);
                 
                 while($row = mysqli_fetch_assoc($get_all_posts)){
-                    
+                    $post_id = $row['post_id'];
                     $post_title = $row['post_title'];
                     $post_user_id = $row['post_user_id'];
                     $post_date = $row['post_date'];
@@ -47,8 +47,8 @@
                     <a href="#"><?php echo $post_title; ?></a>
                     <?php
                     if(isset($_SESSION['user_role'])){
-                        if($_SESSION['user_role'] === "Admin"){
-                        echo "<a href='admin/posts.php?source=edit_posts&update=$post_id'><button class='btn btn-default pull-right'> Edit Post</button></a>";
+                        if($_SESSION['user_role'] === "Subscriber" && $post_user_id == $_SESSION['db_user_id']){
+                        echo "<a href='edit_posts.php?update=$post_id'><button class='btn btn-default pull-right'> Edit Post</button></a>";
                         }
                     }        
                     ?>
@@ -62,7 +62,7 @@
                 <hr>
                 <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
                 <hr>
-                <p><?php echo $post_content; ?></p>
+                <p><?php echo nl2br($post_content); ?></p>
 
                 <hr>
                 <?php } 

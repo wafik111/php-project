@@ -26,21 +26,27 @@ if(isset($_POST['login'])){
         $db_user_firstname = $row['user_firstname'];
         $db_user_lastname = $row['user_lastname'];
         $db_user_role = $row['user_role'];
+        $db_approved = $row['approved'];
+        $db_locked = $row['locked'];
     }
     
     
     if($username && $password){
-        if($username === $db_username && password_verify($password,$db_user_password)){
-            $_SESSION['db_user_id'] = $db_user_id;
-            $_SESSION['username'] = $db_username;
-            $_SESSION['firstname'] = $db_user_firstname;
-            $_SESSION['lastname'] = $db_user_lastname;
-            $_SESSION['user_role'] = $db_user_role;
-            $_SESSION['password'] = $password;
-            header("Location: ../admin");
+        if($username === $db_username && password_verify($password,$db_user_password) && $db_approved == 1){
+            if ($db_locked ==1) {
+                header("Location: ../index.php?message=Your account is locked Please contact the Admin");
+            }elseif ($db_locked == 0) {
+                $_SESSION['db_user_id'] = $db_user_id;
+                $_SESSION['username'] = $db_username;
+                $_SESSION['firstname'] = $db_user_firstname;
+                $_SESSION['lastname'] = $db_user_lastname;
+                $_SESSION['user_role'] = $db_user_role;
+                $_SESSION['password'] = $password;
+                header("Location: ../admin");
+            }
         }
         else{
-            header("Location: ../index.php?message=Incorrect Username/Password");
+            header("Location: ../index.php?message=Incorrect Username/Password Or UnApproved Account ");
         }
     }
     else{

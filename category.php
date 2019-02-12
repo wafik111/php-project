@@ -55,10 +55,13 @@
                     while($row = mysqli_fetch_assoc($get_cat_post)){
                         $post_id = $row['post_id'];
                         $post_title = $row['post_title'];
-                        $post_author = $row['post_author'];
+                        $post_user_id = $row['post_user_id'];
                         $post_date = $row['post_date'];
                         $post_image = $row['post_image'];
                         $post_content = $row['post_content'];
+                        $query = "SELECT * FROM users WHERE user_id = $post_user_id LIMIT 1";
+                        $get_user = mysqli_query($connection,$query);
+                        $row = mysqli_fetch_assoc($get_user);
                     
                 ?>
 
@@ -67,7 +70,7 @@
                     <a href="post.php?post_id=<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="author_related_posts.php?author=<?php echo $post_author; ?>"><?php echo $post_author; ?></a>
+                    by <a href="author_related_posts.php?author=<?php echo $post_author; ?>"><?php echo $row['user_firstname']; ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
                 <hr>

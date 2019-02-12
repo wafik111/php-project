@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 
-                <a class="navbar-brand" id="logo_link" href="index.php"><img id="logo" src="./images/Sanish1.png" alt="logo"></a>
+                <a class="navbar-brand" id="logo_link" href="index.php"><img id="logo" src="./images/Sanish11.png" height="50" width="50" alt="logo"></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -37,8 +37,6 @@
                         $class_category = '';
                         $registration = 'registration.php';
                         $registration_class = '';
-                        $contact = 'contact.php';
-                        $contact_class = '';
                         
                         $pageName = basename($_SERVER['PHP_SELF']);
                         
@@ -47,9 +45,6 @@
                         }
                         else if($pageName == $registration){
                             $registration_class ='active';
-                        }
-                        else if($pageName == $contact){
-                            $contact_class = 'active';
                         }
                         
                         echo "<li class='$class_category'><a href='./category.php?cat_id=$cat_id'>{$cat_title}</a></li>";
@@ -61,9 +56,6 @@
                         <a href="registration.php">User Registration</a>
                     </li>
                     <?php } ?>
-                    <li  class="<?php echo $contact_class;?>">
-                    <a  href="contact.php">Contact Us</a>
-                    </li>
                 </ul>
 
               <?php if ($_SESSION['user_role'] == "Subscriber") {
