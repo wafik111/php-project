@@ -1,8 +1,9 @@
 				*****Os ENews Website******
 
 	**Admin Panel Details**
-/*Username: Ahmed
-/*Password: 123
+	
+**Username: Ahmed**
+**Password: 123**
 
 	**How to run the PHP Project**
 
